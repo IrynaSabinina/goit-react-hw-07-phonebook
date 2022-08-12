@@ -1,31 +1,35 @@
 import { createReducer, combineReducers, createSlice } from '@reduxjs/toolkit';
-import { addAction, deleteAction, filterAction } from './actions';
+import { filterContactsAction } from './actions';
 import { contactsInitialState } from './initialState';
-import { STATUS } from 'constanse/status';
-import { getContactsThunk } from '../redux/thunks/thunks';
+// import { STATUS } from 'constanse/status';
+import {
+  getContactsThunk,
+  addContactThunk,
+  deleteContactThunk,
+} from '../redux/thunks/thunks';
 
-// console.log(initialState);
+// console.log(contactsInitialState.items);
+
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: contactsInitialState,
+  initialState: contactsInitialState.items,
   extraReducers: {
-    [getContactsThunk.pending]: state => (state.status = STATUS.Loading),
-    [getContactsThunk.fulfilled]: (state, actions) => {
-      state.status = STATUS.Success;
-      state.contacts.items = actions.payload;
-    },
-    [getContactsThunk.rejected]: state => (state.status = STATUS.Error),
+    [getContactsThunk.fulfilled]: (_, action) => action.payload,
+    [addContactThunk.fulfilled]: (state, action) => [...state, action.payload],
+    [deleteContactThunk.fulfilled]: (state, action) =>
+      state.filter(item => item.id !== action.payload),
   },
 });
 
-export const contactsReducer = contactsSlice.reducer;
+// export const contactsReducer = contactsSlice.reducer;
+// export default contactsSlice.reducer;
 // console.log(contactsReducer);
 
-// export const filterReducer = createReducer((contactsInitialState.filter = ''), {
-//   [filterAction]: (_, action) => action.payload,
-// });
+export const filterReducer = createReducer(contactsInitialState.filter, {
+  [filterContactsAction]: (_, action) => action.payload,
+});
 
-// export const rootReducer = combineReducers({
-//   items: contactsReducer,
-//   filter: filterReducer,
-// });
+export const rootReducer = combineReducers({
+  items: contactsSlice.reducer,
+  filter: filterReducer,
+});

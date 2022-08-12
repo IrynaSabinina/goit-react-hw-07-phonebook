@@ -1,11 +1,7 @@
-import PropTypes from 'prop-types';
 import styles from './FindElement.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterSelector } from 'redux/selectors';
 import { filterContactsAction } from 'redux/actions';
-// {
-//   filter, hendleChangeFindElement;
-// }
 
 export const FindElement = () => {
   const filter = useSelector(filterSelector);
@@ -28,9 +24,4 @@ export const FindElement = () => {
       </label>
     </div>
   );
-};
-
-FindElement.propTypes = {
-  filter: PropTypes.string,
-  hendleChangeFindElement: PropTypes.func,
 };

@@ -1,4 +1,4 @@
-import { STATUS } from 'constanse/status';
+// import { STATUS } from 'constanse/status';
 
 // export const initialState = {
 //   items: [
@@ -12,7 +12,6 @@ import { STATUS } from 'constanse/status';
 // };
 
 export const contactsInitialState = {
-  status: STATUS.Idle,
   items: [],
   filter: '',
 };

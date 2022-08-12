@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import styles from './Contacts.module.css';
 
-export const ContactItem = ({ id, name, number, contactDelete }) => {
+export const ContactItem = ({ id, name, phone, contactDelete }) => {
   return (
     <li className={styles.item}>
-      {name} : {number}
+      {name} : {phone}
       <button
         className={styles.btnDel}
         type="button"
@@ -18,7 +18,7 @@ export const ContactItem = ({ id, name, number, contactDelete }) => {
 
 ContactItem.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   contactDelete: PropTypes.func.isRequired,
 };

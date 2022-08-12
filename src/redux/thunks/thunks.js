@@ -1,6 +1,6 @@
 // import { useDispatch } from 'react-redux';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchContacts } from 'API/api';
+import { fetchContacts, addContactFech, deleteContactFech } from 'API/api';
 
 // export const getContactsThunk = () => async dispatch => {
 //   dispatch({ type: 'getContactsLoading' });
@@ -15,6 +15,23 @@ import { fetchContacts } from 'API/api';
 export const getContactsThunk = createAsyncThunk(
   'contacts/getContacts',
   async () => {
-    return await fetchContacts();
+    const { data } = await fetchContacts();
+    return data;
+  }
+);
+export const addContactThunk = createAsyncThunk(
+  'contacts/addContact',
+  async contact => {
+    const { data } = await addContactFech(contact);
+    return data;
+  }
+);
+
+export const deleteContactThunk = createAsyncThunk(
+  'contacts/deleteContact',
+  async id => {
+    const { data } = await deleteContactFech(id);
+    console.log(data.id);
+    return data.id;
   }
 );

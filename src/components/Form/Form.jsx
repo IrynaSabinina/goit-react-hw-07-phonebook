@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import styles from './Form.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContactAction } from '../../redux/actions';
+import { addContactThunk } from '../../redux/thunks/thunks';
 import { contactsSelector } from '../../redux/selectors';
 
 export const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const contacts = useSelector(contactsSelector);
 
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ export const Form = () => {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         return;
@@ -29,7 +29,7 @@ export const Form = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
 
-    const inContacts = contacts.some(
+    const inContacts = contacts.find(
       item => item.name.toUpperCase() === name.toUpperCase()
     );
 
@@ -37,16 +37,14 @@ export const Form = () => {
       alert('is already in your phonebook');
       return;
     } else {
-      dispatch(addContactAction(name, number));
-
-      // onSubmit({ name, number, id });-> dis
+      dispatch(addContactThunk({ name, phone }));
       resetInput();
     }
   };
 
   const resetInput = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -67,8 +65,8 @@ export const Form = () => {
         Number
         <input
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           onChange={handleChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
