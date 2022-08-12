@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styles from './Form.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAction } from '../../redux/actions';
+import { addContactAction } from '../../redux/actions';
 import { contactsSelector } from '../../redux/selectors';
 
 export const Form = () => {
@@ -37,7 +37,7 @@ export const Form = () => {
       alert('is already in your phonebook');
       return;
     } else {
-      dispatch(addAction(name, number));
+      dispatch(addContactAction(name, number));
 
       // onSubmit({ name, number, id });-> dis
       resetInput();

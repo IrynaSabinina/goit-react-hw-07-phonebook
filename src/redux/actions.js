@@ -1,13 +1,24 @@
-import { createAction } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { fetchContacts, addContactFech, deleteContactFech } from '../API/api';
 
-export const addAction = createAction('add', (name, number) => ({
-  payload: {
-    name,
-    number,
-    id: nanoid(),
-  },
-}));
+export const getContactsAction = createAsyncThunk('contacts/get', async () => {
+  return await fetchContacts();
+});
 
-export const deleteAction = createAction('delete');
-export const filterAction = createAction('filter');
+export const addContactAction = createAsyncThunk(
+  'contact/add',
+  async contact => {
+    await addContactFech(contact);
+    return await fetchContacts();
+  }
+);
+
+export const deleteContactAction = createAsyncThunk(
+  'contact/delete',
+  async id => {
+    await deleteContactFech(id);
+    return await fetchContacts();
+  }
+);
+
+export const filterContactsAction = createAction('contacts/filter');
