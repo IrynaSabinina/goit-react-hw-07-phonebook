@@ -6,7 +6,7 @@ import { filter } from 'redux/reducers';
 export const FindElement = () => {
   const filterVal = useSelector(state => state.filter);
   const dispatch = useDispatch();
-  console.log(filter);
+  // console.log(filter);
 
   const hendlFilter = e => {
     dispatch(filter(e.target.value));

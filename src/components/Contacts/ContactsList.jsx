@@ -15,8 +15,8 @@ export const ContactsList = () => {
   const contacts = useSelector(contactsSelector);
   const filter = useSelector(filterSelector);
   const dispatch = useDispatch();
-  console.log(contacts);
-  console.log(filter);
+  // console.log(contacts);
+  // console.log(filter);
 
   useEffect(() => {
     dispatch(getContactsThunk());
