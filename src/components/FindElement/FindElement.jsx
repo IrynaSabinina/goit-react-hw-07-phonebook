@@ -1,11 +1,16 @@
 import styles from './FindElement.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterSelector } from 'redux/selectors';
-import { filterContactsAction } from 'redux/actions';
+
+import { filter } from 'redux/reducers';
 
 export const FindElement = () => {
-  const filter = useSelector(filterSelector);
+  const filterVal = useSelector(state => state.filter);
   const dispatch = useDispatch();
+  console.log(filter);
+
+  const hendlFilter = e => {
+    dispatch(filter(e.target.value));
+  };
 
   return (
     <div className={styles.findForm}>
@@ -14,9 +19,9 @@ export const FindElement = () => {
         <input
           className={styles.inputFind}
           type="text"
-          name="name"
-          value={filter}
-          onChange={event => dispatch(filterContactsAction(event.target.value))}
+          name="filter"
+          value={filterVal}
+          onChange={hendlFilter}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
